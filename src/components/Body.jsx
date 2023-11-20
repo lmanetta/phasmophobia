@@ -45,18 +45,18 @@ const Body = () => {
 
     let pruebasFiltradas = pruebasFiltro.filter((item)=>item.evidencia_id == e)
     
-    let fantasmasFiltrados = []
+    // let fantasmasFiltrados = []
     
-    pruebasFiltradas.map((item)=>
-    getFantasmasById(item.fantasma_id).then((data)=>fantasmasFiltrados=(data[0])).then(()=>evidenciaFiltro.push({
-      id: fantasmasFiltrados.id,
-      nombre: fantasmasFiltrados.nombre,
-    })).finally(()=>setFantasmaFiltro(evidenciaFiltro.slice(1))))
+    // pruebasFiltradas.map((item)=>
+    // getFantasmasById(item.fantasma_id).then((data)=>fantasmasFiltrados=(data[0])).then(()=>evidenciaFiltro.push({
+    //   id: fantasmasFiltrados.id,
+    //   nombre: fantasmasFiltrados.nombre,
+    // })).finally(()=>setFantasmaFiltro(evidenciaFiltro.slice(1))))
+  
+    const elementosPresentes = fantasmaFiltro.filter(elem => pruebasFiltradas.find((item) => item.fantasma_id == elem.id));
+    setFantasmaFiltro(elementosPresentes)
+    
 
-    
- 
-   
-    
   }
 
   const handleFilterUnClicked =(e)=>{
