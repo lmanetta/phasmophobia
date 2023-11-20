@@ -9,3 +9,13 @@ export const getFantasmas = async () => {
     return Fantasmas;
 
 }
+
+
+export const getFantasmasById = async (id)=>{
+    let {data: Fantasma , error} = await supabase
+    .from('Fantasmas')
+    .select('*')
+    .eq('id',id)
+
+    return Fantasma
+}

@@ -4,13 +4,21 @@ import FantasmaCard from "./FantasmaCard";
 import {
   getEvidencias,
   getEvidenciasByEvidenciaId,
+  getPruebaFantasma,
 } from "../backend/controllers/evidencias";
+
+import { getFantasmasById } from "../backend/controllers/fantasmas";
 
 const Body = () => {
   const [fantasmas, setFantasmas] = useState();
-  const [evidencias, setEvidencias] = useState([]);
-  const [fantasmaFiltro, setFantasmaFiltro] = useState();
-  const [evidenciaFiltro, setEvidenciaFiltro] = useState();
+  const [evidencias, setEvidencias] = useState();
+  const [pruebas, setPruebas] = useState([]);
+  const [pruebasFiltro, setPruebasFiltro] = useState([])
+  const [fantasmaFiltro, setFantasmaFiltro] = useState([]);
+  const [evidenciaFiltro, setEvidenciaFiltro] = useState([{}]);
+
+  const [filtroOk, setFiltroOK] = useState(false);
+
 
   useEffect(() => {
     getFantasmas().then((data) => {
@@ -19,22 +27,41 @@ const Body = () => {
     });
 
     getEvidencias().then((data) => setEvidencias(data));
+
+    getPruebaFantasma().then((data)=> {
+      setPruebas(data);
+      setPruebasFiltro(data);
+  })
   }, []);
 
   const handleFilter = (e) => {
-    e.target.checked && 
-    getEvidenciasByEvidenciaId(e.target.value).then((data) =>
-      setEvidenciaFiltro(data)
-    );
-    fantasmaFiltro.map((item) =>
-      evidenciaFiltro?.map((evi) => 
-        
-      console.log(fantasmaFiltro.find((item2) => item2.id != evi.fantasma_id))
-
-
-      )
-    );
+    e.target.checked ? handleFilterClicked(e.target.value) : handleFilterUnClicked(e.target.value)
+   
   };
+
+  const handleFilterClicked =(e)=>{
+
+    setEvidenciaFiltro([{}])
+
+    let pruebasFiltradas = pruebasFiltro.filter((item)=>item.evidencia_id == e)
+    
+    let fantasmasFiltrados = []
+    
+    pruebasFiltradas.map((item)=>
+    getFantasmasById(item.fantasma_id).then((data)=>fantasmasFiltrados=(data[0])).then(()=>evidenciaFiltro.push({
+      id: fantasmasFiltrados.id,
+      nombre: fantasmasFiltrados.nombre,
+    })).finally(()=>setFantasmaFiltro(evidenciaFiltro.slice(1))))
+
+    
+ 
+   
+    
+  }
+
+  const handleFilterUnClicked =(e)=>{
+    setFantasmaFiltro(fantasmas)
+  }
 
   return (
     <div>
@@ -60,20 +87,23 @@ const Body = () => {
                   type="checkbox"
                   value={evidencias.id}
                   onClick={(e) => handleFilter(e)}
-                />{" "}
+                />
                 {evidencias.prueba}
               </div>
             ))}
           </div>
           <div>
             <h2>Fantasmas</h2>
-            {evidencias ? (
-              fantasmaFiltro?.map((fantasma) => (
+            {evidencias && fantasmaFiltro ? (
+              fantasmaFiltro.map((fantasma) => (
+                // console.log(fantasma)
+                <>
                 <FantasmaCard
                   key={fantasma.id}
                   fantasma={fantasma}
                   evidencias={evidencias}
                 />
+                </>
               ))
             ) : (
               <span>Loading...</span>
