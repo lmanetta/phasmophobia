@@ -7,23 +7,29 @@ import { pruebas } from "./data/pruebas";
 import { Pruebas } from "./components/Pruebas";
 
 function App() {
-  const [filtro, setFiltro] = useState();
+  const [filtro, setFiltro] = useState([]);
 
-  const fantasmasFilter = filtro
-    ? fantasmas.filter((fantasma) => fantasma.pruebas.includes(filtro))
+  const fantasmasFilter = filtro.length
+    ? fantasmas.filter((fantasma) => filtro.every((f) =>
+      fantasma.pruebas.includes(f)))
     : fantasmas;
 
   const onClick = (prueba) => {
-    setFiltro((prevFiltro) => (prevFiltro === prueba ? null : prueba));
+    setFiltro((prevFiltros) =>
+      prevFiltros.includes(prueba)
+        ? prevFiltros.filter((filtro) => filtro!== prueba)
+        : [...prevFiltros, prueba]
+    );
   };
+
 
   return (
     <>
       <Header />
       <div className="menuPrueba">
-        {pruebas.map((prueba, id) => (
+        {pruebas.map((prueba) => (
           <Pruebas
-            key={id}
+            key={prueba.id}
             prueba={prueba}
             filtro={filtro}
             onClick={onClick}

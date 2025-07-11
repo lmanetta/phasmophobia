@@ -1,5 +1,9 @@
 export const Pruebas = ({prueba, filtro, onClick}) => {
- const estiloFiltro = {backgroundColor: filtro === prueba.nombre && "rgb(73, 73, 73"}
+  const activo = filtro.includes(prueba.nombre);
+  const estiloFiltro = {
+    backgroundColor: activo ? "rgb(73, 73, 73)" : "transparent",
+  };
+
 
   return (
     <div>

@@ -12,9 +12,10 @@
   width: 6em;
   text-align: center;
   cursor: pointer;
-  padding: 0.5em;
+  padding: 4px 8px;
   border: 1px solid blanchedalmond;
   border-radius: 10px;
+  margin:4px;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
