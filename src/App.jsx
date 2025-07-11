@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { Header } from "./components/Header";
-import { FichaFantasma } from "./components/fichaFantasma";
+import { FichaFantasma } from "./components/FichaFantasma";
 import { fantasmas } from "./data/fantasmas";
 import { pruebas } from "./data/pruebas";
 import { Pruebas } from "./components/Pruebas";
