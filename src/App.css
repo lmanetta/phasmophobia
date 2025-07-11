@@ -1,0 +1,30 @@
+*{
+  margin: 0.5em;
+}
+
+.menuPrueba{
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 1em;
+}
+
+.menuPrueba p {
+  width: 6em;
+  text-align: center;
+  cursor: pointer;
+  padding: 0.5em;
+  border: 1px solid blanchedalmond;
+  border-radius: 10px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.menuPrueba p:hover{
+  transform: scale(1.1);
+  background-color: rgb(73, 73, 73);
+}
+
+.fichaContainer{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}

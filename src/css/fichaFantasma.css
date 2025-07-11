@@ -1,0 +1,79 @@
+.container {
+  width: 19em;
+  height: 18em;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  background-color: rgb(53, 52, 52);
+  margin-bottom: 3em;
+  position: relative;
+}
+
+.container:hover{
+  transform: scale(1.1);
+}
+
+.contenidoVoltear {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.contenidoVoltear.hidden {
+  opacity: 0;
+}
+  
+h3 {
+  font-size: 18pt;
+}
+
+.botonContainer {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.botonContainer:hover {
+  background-color: rgb(63, 62, 60);
+  cursor: pointer;
+}
+
+.pruebasContainer{
+  display: flex;
+  justify-content: space-evenly;
+  /* border: 1px solid red; */
+  margin: 0;
+}
+.pruebasContainer p{
+  border: 1px solid rgb(102, 102, 102);
+  padding: 0.5em;
+  margin: 0;
+}
+
+.frenteData{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  width: auto;
+  height: auto;
+  margin-top: 2em;
+}
+
+.atrasData ul {
+  list-style-type: square;
+  text-align: justify;
+  padding-right: 0.75em;
+  padding-left: 0.5em;
+}
+
+.atrasData li {
+  margin-bottom: 0.5em;
+}
+
+.botonContainer{
+  cursor: pointer;
+}
