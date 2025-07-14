@@ -1,5 +1,6 @@
 export const fantasmas = [
   {
+    id: 1,
     name: "Espíritu",
     pruebas: ["EMF", "Spirit Box", "Escritura"],
     pruebaObligatoria: null,
@@ -7,6 +8,7 @@ export const fantasmas = [
     cordura: "<50%.",
   },
   {
+    id: 2,
     name: "Espectro",
     pruebas: ["EMF", "Spirit Box", "D.O.T.S"],
     pruebaObligatoria: null,
@@ -17,6 +19,7 @@ export const fantasmas = [
     cordura: "<50%.",
   },
   {
+    id: 3,
     name: "Ente",
     pruebas: ["Spirit Box", "Huellas", "D.O.T.S"],
     pruebaObligatoria: null,
@@ -29,6 +32,7 @@ export const fantasmas = [
     cordura: "<50%.",
   },
   {
+    id: 4,
     name: "Poltergeist",
     pruebas: ["Spirit Box", "Huellas", "Escritura"],
     pruebaObligatoria: null,
@@ -39,6 +43,7 @@ export const fantasmas = [
     cordura: "<50%.",
   },
   {
+    id: 5,
     name: "Banshee",
     pruebas: ["Huellas", "Orbes", "D.O.T.S"],
     pruebaObligatoria: null,
@@ -49,6 +54,7 @@ export const fantasmas = [
     cordura: "<40%.",
   },
   {
+    id: 6,
     name: "Jinn",
     pruebas: ["EMF", "Huellas", "Temperaturas"],
     pruebaObligatoria: null,
@@ -59,6 +65,7 @@ export const fantasmas = [
     cordura: "<50%.",
   },
   {
+    id: 7,
     name: "Pesadilla",
     pruebas: ["Spirit Box", "Orbes", "Escritura"],
     pruebaObligatoria: null,
@@ -71,6 +78,7 @@ export const fantasmas = [
     cordura: "<40% a menos que la luz esté apagada (<60%)",
   },
   {
+    id: 8,
     name: "Revenant",
     pruebas: ["Orbes", "Escritura", "Temperaturas"],
     pruebaObligatoria: null,
@@ -81,6 +89,7 @@ export const fantasmas = [
     cordura: "<50%.",
   },
   {
+    id: 9,
     name: "Sombra",
     pruebas: ["EMF", "Escritura", "Temperaturas"],
     pruebaObligatoria: null,
@@ -92,6 +101,7 @@ export const fantasmas = [
     cordura: "<35%.",
   },
   {
+    id: 10,
     name: "Demonio",
     pruebas: ["Huellas", "Escritura", "Temperaturas"],
     pruebaObligatoria: null,
@@ -102,6 +112,7 @@ export const fantasmas = [
     cordura: "<70%.",
   },
   {
+    id: 11,
     name: "Yurei",
     pruebas: ["Orbes", "Temperaturas", "D.O.T.S"],
     pruebaObligatoria: null,
@@ -113,6 +124,7 @@ export const fantasmas = [
     cordura: "<50%.",
   },
   {
+    id: 12,
     name: "Oni",
     pruebas: ["EMF", "Temperaturas", "D.O.T.S"],
     pruebaObligatoria: null,
@@ -124,6 +136,7 @@ export const fantasmas = [
     cordura: "<50%.",
   },
   {
+    id: 13,
     name: "Yokai",
     pruebas: ["Spirit Box", "Orbes", "D.O.T.S"],
     pruebaObligatoria: null,
@@ -134,6 +147,7 @@ export const fantasmas = [
     cordura: "<50%. Entre el 75-80% si se le habla cerca.",
   },
   {
+    id: 14,
     name: "Hantu",
     pruebas: ["Huellas", "Orbes", "Temperaturas"],
     pruebaObligatoria: "Temperaturas",
@@ -145,6 +159,7 @@ export const fantasmas = [
     cordura: "<50%",
   },
   {
+    id: 15,
     name: "Goryo",
     pruebas: ["EMF", "Huellas", "D.O.T.S"],
     pruebaObligatoria: "D.O.T.S",
@@ -152,6 +167,7 @@ export const fantasmas = [
     cordura: "<50%",
   },
   {
+    id: 16,
     name: "Myling",
     pruebas: ["EMF", "Huellas", "Escritura"],
     pruebaObligatoria: null,
@@ -162,6 +178,7 @@ export const fantasmas = [
     cordura: "<50%",
   },
   {
+    id: 17,
     name: "Onryo",
     pruebas: ["Spirit Box", "Orbes", "Temperaturas"],
     pruebaObligatoria: null,
@@ -171,6 +188,7 @@ export const fantasmas = [
     cordura: "<60%",
   },
   {
+    id: 18,
     name: "Gemelos",
     pruebas: ["EMF", "Spirit Box", "Temperaturas"],
     pruebaObligatoria: null,
@@ -182,6 +200,7 @@ export const fantasmas = [
     cordura: "<50%",
   },
   {
+    id: 19,
     name: "Raiju",
     pruebas: ["EMF", "Orbes", "D.O.T.S"],
     pruebaObligatoria: null,
@@ -189,6 +208,7 @@ export const fantasmas = [
     cordura: "<65%",
   },
   {
+    id: 20, 
     name: "Obake",
     pruebas: ["EMF", "Huellas", "Orbes"],
     pruebaObligatoria: "Huellas",
@@ -200,6 +220,7 @@ export const fantasmas = [
     cordura: "<50%",
   },
   {
+    id: 21,
     name: "Mímico",
     pruebas: ["Spirit Box", "Huellas", "Temperaturas"],
     pruebaObligatoria: "Orbes falsos",
@@ -207,6 +228,7 @@ export const fantasmas = [
     cordura: "Depende del fantasma que imita.",
   },
   {
+    id: 22,
     name: "Moroi",
     pruebas: ["Spirit Box", "Escritura", "Temperaturas"],
     pruebaObligatoria: "Spirit Box",
@@ -218,6 +240,7 @@ export const fantasmas = [
     cordura: "<50%",
   },
   {
+    id: 23,
     name: "Deogen",
     pruebas: ["Spirit Box", "Escritura", "D.O.T.S"],
     pruebaObligatoria: "Spirit Box",
@@ -229,6 +252,7 @@ export const fantasmas = [
     cordura: "<40%",
   },
   {
+    id: 24,
     name: "Thaye",
     pruebas: ["Orbes", "Escritura", "D.O.T.S"],
     pruebaObligatoria: null,

@@ -17,7 +17,7 @@
 }
 
 .info{
-  padding: 10px;
+  padding: 5px;
 }
 
 .contenidoVoltear {
@@ -31,6 +31,9 @@
 
 h3 {
   font-size: 18pt;
+  border-bottom: 1px solid rgb(230, 226, 226);
+  line-height: 2em;
+  margin-top: -10px;
 }
 
 .botonEditar {
@@ -51,17 +54,18 @@ h3 {
 .pruebasContainer {
   width: 100%;
   margin: 0;
-   display: flex;
+  display: flex;
   justify-content: center;
   gap: 0.5em;
   white-space: nowrap;
-  margin-top: 5px;
+  margin-top: 15px;
 }
 .cadaPrueba {
   display: flex;
   gap: 0.5em;
   justify-content: center;
   flex-wrap: wrap;
+  margin: 0 -20px;
 }
 
 .cadaPrueba p {
@@ -74,19 +78,22 @@ h3 {
 } 
 
 .frenteData {
-  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 2em;
-  width: auto;
-  height: auto;
+  justify-content: center;
+  align-items: center;
 }
 
 .atrasData ul {
   list-style-type: square;
-  text-align: justify;
-  padding-right: 0.75em;
-  padding-left: 0.5em;
+  text-align: left;
+  padding-top: 2px;
+  padding-right: 0.5em;
+  padding-left: 0;
+  margin: -10px;
+  width: 100%;
 }
 
 .atrasData li {

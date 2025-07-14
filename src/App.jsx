@@ -10,12 +10,13 @@ function App() {
   const [filtro, setFiltro] = useState([]);
   const [admin, setAdmin] = useState(false);
   const [modoEdicion, setModoEdicion] = useState(false);
+  const [fantasma, setFantasma] = useState(fantasmas)
 
   const fantasmasFilter = filtro.length
-    ? fantasmas.filter((fantasma) =>
-        filtro.every((f) => fantasma.pruebas.includes(f))
+    ? fantasma.filter((f) =>
+        filtro.every((fant) => f.pruebas.includes(fant))
       )
-    : fantasmas;
+    : fantasma;
 
   const onClick = (prueba) => {
     setFiltro((prevFiltros) =>
@@ -33,6 +34,11 @@ function App() {
     setModoEdicion(!modoEdicion);
   };
 
+  const onDelete = (id) =>{ 
+    setFantasma((prev) => prev.filter((fantasma) => fantasma.id !== id))
+
+  }
+
   return (
     <>
       <Header admin={admin} handleAdmin={handleAdmin} />
@@ -48,13 +54,14 @@ function App() {
       </div>
 
       <div className="fichaContainer">
-        {fantasmasFilter.map((fantasma, index) => (
+        {fantasmasFilter.map((fantasma) => (
           <FichaFantasma
-            key={index + fantasma}
+            key={fantasma.id}
             fantasma={fantasma}
             admin={admin}
             onEdition={handleEdition}
             modoEdicion={modoEdicion}
+            onDelete={onDelete}
           />
         ))}
       </div>
