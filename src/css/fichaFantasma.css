@@ -47,8 +47,21 @@ h3 {
 }
 
 .botonEditar:hover {
-  background-color: rgb(63, 62, 60);
+  color: rgb(125, 125, 125);
   cursor: pointer;
+}
+
+.botonDelete{
+  position: absolute;
+  top: 0.5em;
+  left: 0.5em;
+  background:none;
+  border: none;
+}
+
+.botonDelete:hover{
+  cursor: pointer;
+  color: rgb(125, 125, 125) ;
 }
 
 .pruebasContainer {

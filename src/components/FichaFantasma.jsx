@@ -1,7 +1,13 @@
 import { useState } from "react";
 import "../css/fichaFantasma.css";
 
-export const FichaFantasma = ({ fantasma, admin, onEdition, modoEdicion, onDelete }) => {
+export const FichaFantasma = ({
+  fantasma,
+  admin,
+  onEdition,
+  modoEdicion,
+  onDelete,
+}) => {
   const [vuelta, setVuelta] = useState(true);
   const [visible, setVisible] = useState(true);
   const [infoFantasma, setInfoFantasma] = useState({ ...fantasma });
@@ -60,6 +66,7 @@ export const FichaFantasma = ({ fantasma, admin, onEdition, modoEdicion, onDelet
                 type="text"
                 value={infoFantasma.name}
                 onChange={(e) => handleChange("name", e.target.value)}
+                onClick={(e) => {e.stopPropagation()}}
               />
             </label>
           ) : (
@@ -77,6 +84,17 @@ export const FichaFantasma = ({ fantasma, admin, onEdition, modoEdicion, onDelet
                 title="Editar"
               >
                 <i class="fa-solid fa-pen"></i>
+              </button>
+              <button
+                className="botonDelete"
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDelete(fantasma.id);
+                }}
+                title="Eliminar"
+              >
+                <i class="fa-solid fa-trash"></i>
               </button>
             </>
           )}
@@ -162,18 +180,6 @@ export const FichaFantasma = ({ fantasma, admin, onEdition, modoEdicion, onDelet
                 title="Actualizar"
               >
                 <i class="fa-solid fa-check"></i>
-              </button>
-              <button
-                // className="botonContainer"
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation(); 
-                  onEdition();
-                  onDelete(fantasma.id)
-                }}
-                title="Eliminar"
-              >
-                <i class="fa-solid fa-trash"></i>
               </button>
             </div>
           )}
