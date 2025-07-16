@@ -40,7 +40,7 @@ export const Pruebas = ({
   return (
     <>
       {pruebas.map((prueba) => (
-        <div>
+        <div key={prueba.id}>
           {modoEdicion ? (
             <input className="inputPrueba"
               type="text"

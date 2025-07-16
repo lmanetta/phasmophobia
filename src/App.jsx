@@ -8,14 +8,23 @@ import { Pruebas } from "./components/Pruebas";
 import "../src/css/pruebas.css";
 
 function App() {
-  const [filtro, setFiltro] = useState([]);
+  const [fantasma, setFantasma] = useState(() => {
+    const guardado = localStorage.getItem("fantasmas");
+    return guardado ? JSON.parse(guardado) : fantasmas;
+  });
+  const [pruebas, setPruebas] = useState(
+    () => {
+      const guardado = localStorage.getItem("pruebasIniciales")
+      return guardado ? JSON.parse(guardado) : pruebasIniciales
+    }
+  );
   const [admin, setAdmin] = useState(false);
+  const [filtro, setFiltro] = useState([]);
   const [modoEdicionF, setModoEdicionF] = useState(false);
   const [modoEdicionP, setModoEdicionP] = useState(false);
-  const [fantasma, setFantasma] = useState(fantasmas);
-  const [pruebas, setPruebas] = useState(pruebasIniciales);
   const [abierto, setAbierto] = useState(false);
 
+  //Filtro de fantasmas por prueba
   const fantasmasFilter = filtro.length
     ? fantasma.filter((f) => filtro.every((fant) => f.pruebas.includes(fant)))
     : fantasma;
@@ -28,10 +37,12 @@ function App() {
     );
   };
 
+  //Admin
   const handleAdmin = () => {
     setAdmin(!admin);
   };
 
+  //Activar/desactivar edicion en pruebas y fantasmas
   const handleEditionF = () => {
     setModoEdicionF(!modoEdicionF);
   };
@@ -39,22 +50,32 @@ function App() {
     setModoEdicionP(!modoEdicionP);
   };
 
+  //Eliminar
   const onDelete = (id) => {
-    setFantasma((prev) => prev.filter((fantasma) => fantasma.id !== id));
+    const listaFantasma = fantasma.filter((f) => f.id !== id);
+    setFantasma(listaFantasma);
+    localStorage.setItem("fantasmas", JSON.stringify(listaFantasma));
   };
 
   const pruebaDlte = (id) => {
-    setPruebas((prev) => prev.filter((prueba) => prueba.id !== id));
+    const listaPruebas = pruebas.filter((p) => p.id !== id);
+    setPruebas(listaPruebas);
+    localStorage.setItem("pruebas", JSON.stringify(listaPruebas));
   };
 
+  //Acción del menú, para mostrar o no las opciones.
   const handleOpen = () => {
     setAbierto(!abierto);
   };
 
+  //Editar y agregar pruebas
   const actualizarPrueba = (id, pruebaEdit) => {
-    setPruebas((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, nombre: pruebaEdit } : p))
+    // );
+    const pruebaAct = pruebas.map((p) =>
+      p.id === id ? { ...p, nombre: pruebaEdit } : p
     );
+    setPruebas(pruebaAct);
+    localStorage.setItem("pruebasIniciales", JSON.stringify(pruebaAct));
   };
 
   const onAdd = (nombrePrueba) => {
@@ -63,7 +84,23 @@ function App() {
       nombre: nombrePrueba,
       filtrado: false,
     };
-    setPruebas([...pruebas, nuevaPrueba]);
+    const nuevas = ([...pruebas, nuevaPrueba]);
+    setPruebas(nuevas)
+    localStorage.setItem("pruebasIniciales", JSON.stringify(nuevas));
+  };
+
+  //Modificar fantasmas
+  const actualizarFantasmas = (id, fantasmaEdit) => {
+    const fantasmaAct = fantasma.map((f) =>
+      f.id === id
+        ? {
+            ...f,
+            ...fantasmaEdit,
+          }
+        : f
+    );
+    setFantasma(fantasmaAct);
+    localStorage.setItem("fantasmas", JSON.stringify(fantasmaAct));
   };
 
   return (
@@ -71,7 +108,6 @@ function App() {
       <Header admin={admin} handleAdmin={handleAdmin} />
       <div className="menuPrueba">
         <Pruebas
-          key={pruebas.id}
           pruebas={pruebas}
           filtro={filtro}
           onClick={onClick}
@@ -95,6 +131,7 @@ function App() {
             onEdition={handleEditionF}
             modoEdicion={modoEdicionF}
             onDelete={onDelete}
+            onUpdate={actualizarFantasmas}
           />
         ))}
       </div>

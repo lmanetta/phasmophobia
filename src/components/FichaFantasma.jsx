@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../css/fichaFantasma.css";
+// import { pruebas } from "../data/pruebas";
 
 export const FichaFantasma = ({
   fantasma,
@@ -7,10 +8,11 @@ export const FichaFantasma = ({
   onEdition,
   modoEdicion,
   onDelete,
+  onUpdate
 }) => {
+
   const [vuelta, setVuelta] = useState(true);
   const [visible, setVisible] = useState(true);
-  const [infoFantasma, setInfoFantasma] = useState({ ...fantasma });
   
 
   /* Volteo */
@@ -32,23 +34,21 @@ export const FichaFantasma = ({
     };
   };
 
-  const handleChange = (propiedad, valor) => {
-    setInfoFantasma((prev) => ({
-      ...prev,
-      [propiedad]: valor,
-    }));
-  };
+  const handleChange = (prop, valor) => {
+    const nuevo = {...fantasma, [prop]:valor}
+    onUpdate(fantasma.id, nuevo)
+  }
 
   const editPruebas = (i, e) => {
-    const nuevasPruebas = [...infoFantasma.pruebas];
+    const nuevasPruebas = [...fantasma.pruebas];
     nuevasPruebas[i] = e.target.value;
-    handleChange("pruebas", nuevasPruebas);
+    onUpdate(fantasma.id, {...fantasma, pruebas:nuevasPruebas});
   };
 
   const editEstrategias = (i, e) => {
-    const nuevasEstrategias = [...infoFantasma.estrategias];
+    const nuevasEstrategias = [...fantasma.estrategias];
     nuevasEstrategias[i] = e.target.value;
-    handleChange("estrategias", nuevasEstrategias);
+    onUpdate(fantasma.id, {...fantasma, estrategias:nuevasEstrategias});
   };
 
   const handleSubmit = (e) => {
@@ -65,13 +65,13 @@ export const FichaFantasma = ({
               Nombre:
               <input
                 type="text"
-                value={infoFantasma.name}
+                value={fantasma.name}
                 onChange={(e) => handleChange("name", e.target.value)}
                 onClick={(e) => {e.stopPropagation()}}
               />
             </label>
           ) : (
-            <h3>{infoFantasma.name}</h3>
+            <h3>{fantasma.name}</h3>
           )}
           {admin && (
             <>
@@ -107,7 +107,7 @@ export const FichaFantasma = ({
                   {modoEdicion ? (
                     <label className="labelPruebas">
                       Pruebas:
-                      {infoFantasma.pruebas.map((prueba, id) => (
+                      {fantasma.pruebas.map((prueba, id) => (
                         <input
                           className="inputPruebas"
                           key={id}
@@ -120,7 +120,7 @@ export const FichaFantasma = ({
                     </label>
                   ) : (
                     <div className="cadaPrueba">
-                      {infoFantasma.pruebas.map((prueba, id) => (
+                      {fantasma.pruebas.map((prueba, id) => (
                         <p key={id} style={pruebaObl(prueba)}>
                           {prueba}
                         </p>
@@ -133,13 +133,13 @@ export const FichaFantasma = ({
                     Cordura:
                     <input
                       type="text"
-                      value={infoFantasma.cordura}
+                      value={fantasma.cordura}
                       onChange={(e) => handleChange("cordura", e.target.value)}
                       onClick={(e) => e.stopPropagation()}
                     />
                   </label>
                 ) : (
-                  <p>Cordura: {infoFantasma.cordura}</p>
+                  <p>Cordura: {fantasma.cordura}</p>
                 )}
               </div>
             ) : (
@@ -149,7 +149,7 @@ export const FichaFantasma = ({
                   <>
                     <label>
                       Estrategias:
-                      {infoFantasma.estrategias.map((estrategia, id) => (
+                      {fantasma.estrategias.map((estrategia, id) => (
                         <input
                           key={id}
                           type="text"
@@ -162,7 +162,7 @@ export const FichaFantasma = ({
                   </>
                 ) : (
                   <ul>
-                    {infoFantasma.estrategias.map((estrategia, id) => (
+                    {fantasma.estrategias.map((estrategia, id) => (
                       <li key={id + estrategia}>{estrategia}</li>
                     ))}
                   </ul>
