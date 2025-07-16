@@ -11,6 +11,7 @@ export const FichaFantasma = ({
   const [vuelta, setVuelta] = useState(true);
   const [visible, setVisible] = useState(true);
   const [infoFantasma, setInfoFantasma] = useState({ ...fantasma });
+  
 
   /* Volteo */
   const volteo = visible ? "contenidoVoltear" : "contenidoVoltear hidden";
