@@ -1,4 +1,4 @@
-import "../css/header.css";
+import "../header/header.css";
 
 export const Header = ({admin, handleAdmin}) => {
   return (
@@ -9,7 +9,7 @@ export const Header = ({admin, handleAdmin}) => {
         <button title="Salir a visitante" onClick={handleAdmin} className="headBtn">
           <i class="fa-solid fa-ghost"></i>
         </button>
-        <button onClick={() => localStorage.clear()}>Borrar Datos</button>
+        <button className="btnReinicio" onClick={() => localStorage.clear()}><i class="fa-solid fa-rotate-right"></i></button>
         </>
       ) : (
         <button title="Ingresar a Admin" onClick={handleAdmin} className="headBtn">

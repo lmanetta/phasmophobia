@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../css/pruebas.css";
+import "../pruebas/pruebas.css";
 
 export const Pruebas = ({
   pruebas,
@@ -7,8 +7,6 @@ export const Pruebas = ({
   onClick,
   pruebaDlte,
   admin,
-  abierto,
-  handleOpen,
   onEdition,
   modoEdicion,
   onUpdate,
@@ -17,6 +15,7 @@ export const Pruebas = ({
 
   const [nuevaPrueba, setNuevaPrueba] = useState("")
   const [agregarPrueba, setAgregarPrueba] = useState(false)
+  const [menuAbierto, setMenuAbierto] = useState(false)
 
 
   const modoAgregar = () => {
@@ -27,18 +26,26 @@ export const Pruebas = ({
     e.preventDefault()
     if (nuevaPrueba){
       onAdd(nuevaPrueba)
+      alert("Se ha agregado nueva prueba")
       setNuevaPrueba("")
     }
   }
 
-  /* Style */
-  const activo = filtro.includes(pruebas.nombre);
-  const estiloFiltro = {
-    backgroundColor: activo ? "rgb(73, 73, 73)" : "transparent",
+  const handleOpen = () => {
+    setMenuAbierto(!menuAbierto);
   };
+
+  /* Style */
+  // const activo = filtro.includes(pruebas.nombre);
+  // const estiloFiltro = {
+  //   backgroundColor: activo ? "rgb(73, 73, 73)" : "transparent",
+  // };
+
+  const activo = (nombre) => filtro.includes(nombre)
 
   return (
     <>
+      <div className="pruebaContainer">
       {pruebas.map((prueba) => (
         <div key={prueba.id}>
           {modoEdicion ? (
@@ -55,7 +62,7 @@ export const Pruebas = ({
             />
           ) : (
             <>
-            <p style={estiloFiltro} onClick={() => onClick(prueba.nombre)}>
+            <p style={{backgroundColor: activo(prueba.nombre) ? "rgb(73, 73, 73)" : "transparent"}} onClick={() => onClick(prueba.nombre)}>
               {prueba.nombre}
               {admin && (
                 <button
@@ -74,6 +81,7 @@ export const Pruebas = ({
           )}
         </div>
       ))}
+      </div>
       {admin && (
         <>
           <button onClick={handleOpen} className="btnOpen" title="Opciones">
@@ -81,27 +89,36 @@ export const Pruebas = ({
               class="fa-solid fa-plus"
               style={{
                 transition: "transform 0.3s ease",
-                transform: abierto ? "rotate(45deg)" : "rotate(0deg)",
+                transform: menuAbierto ? "rotate(45deg)" : "rotate(0deg)",
               }}
             ></i>
           </button>
           {agregarPrueba && (
-              <form onSubmit={handleSubmit}>
+              <div data-aos="fade-down" className="pruebaNueva">
+                <form onSubmit={handleSubmit}>
                 <label>Nueva prueba: 
                 <input type="text"
               value={nuevaPrueba}
               onChange={(e) => setNuevaPrueba (e.target.value)}
-              /* onKeyDown={(e) => {
-                if (e.key === "Enter") {modoAgregar()}
-              }} *//>
+              />
               </label>
               </form>
+              <button
+                  className="icono-delete"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    modoAgregar()
+                  }}
+                >
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+              </div>
             )}
 
-          {abierto && (
+          {menuAbierto && (
             <ul className="listaPlus">
-              <li onClick={()=>onEdition()}>Editar</li>
-              <li onClick={()=>modoAgregar()}>Agregar pista</li>
+              <li onClick={()=>{onEdition(); handleOpen()}}>Editar prueba</li>
+              <li onClick={()=>{modoAgregar(); handleOpen()}}>Agregar prueba</li>
             </ul>
           )}
         </>

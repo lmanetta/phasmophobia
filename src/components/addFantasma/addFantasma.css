@@ -1,0 +1,9 @@
+.formFantasma form{
+    height: 90%;
+    overflow-y: scroll;
+}
+
+label{
+    margin: 0;
+    padding: 0;
+}

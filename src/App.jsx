@@ -1,28 +1,32 @@
 import { useState } from "react";
 import "./App.css";
-import { Header } from "./components/Header";
-import { FichaFantasma } from "./components/FichaFantasma";
+import { Header } from "./components/header/Header";
+import { FichaFantasma } from "./components/fichaFantasma/FichaFantasma";
 import { fantasmas } from "./data/fantasmas";
 import { pruebas as pruebasIniciales } from "./data/pruebas";
-import { Pruebas } from "./components/Pruebas";
-import "../src/css/pruebas.css";
+import { Pruebas } from "./components/pruebas/Pruebas";
+import "../src/components/pruebas/pruebas.css";
+import { AddFantasma } from "./components/addFantasma/AddFantasma";
 
 function App() {
   const [fantasma, setFantasma] = useState(() => {
     const guardado = localStorage.getItem("fantasmas");
     return guardado ? JSON.parse(guardado) : fantasmas;
   });
-  const [pruebas, setPruebas] = useState(
-    () => {
-      const guardado = localStorage.getItem("pruebasIniciales")
-      return guardado ? JSON.parse(guardado) : pruebasIniciales
-    }
-  );
-  const [admin, setAdmin] = useState(false);
+  const [pruebas, setPruebas] = useState(() => {
+    const guardado = localStorage.getItem("pruebasIniciales");
+    return guardado ? JSON.parse(guardado) : pruebasIniciales;
+  });
+  // const [admin, setAdmin] = useState(false);
+  const [admin, setAdmin] = useState(() => {
+    const guardado = localStorage.getItem("admin");
+    return guardado ? JSON.parse(guardado) : false;
+  });
   const [filtro, setFiltro] = useState([]);
-  const [modoEdicionF, setModoEdicionF] = useState(false);
+  const [edicionFantasma, setEdicionFantasma] = useState();
   const [modoEdicionP, setModoEdicionP] = useState(false);
   const [abierto, setAbierto] = useState(false);
+  const [newFantasma, setNewFantasma] = useState(false);
 
   //Filtro de fantasmas por prueba
   const fantasmasFilter = filtro.length
@@ -39,12 +43,14 @@ function App() {
 
   //Admin
   const handleAdmin = () => {
-    setAdmin(!admin);
+    const estado = !admin;
+    setAdmin(estado);
+    localStorage.setItem("admin", JSON.stringify(estado));
   };
 
   //Activar/desactivar edicion en pruebas y fantasmas
-  const handleEditionF = () => {
-    setModoEdicionF(!modoEdicionF);
+  const toggleEdicionF = (id) => {
+    setEdicionFantasma((prev) => (prev === id ? null : id));
   };
   const handleEditionP = () => {
     setModoEdicionP(!modoEdicionP);
@@ -60,7 +66,7 @@ function App() {
   const pruebaDlte = (id) => {
     const listaPruebas = pruebas.filter((p) => p.id !== id);
     setPruebas(listaPruebas);
-    localStorage.setItem("pruebas", JSON.stringify(listaPruebas));
+    localStorage.setItem("pruebasIniciales", JSON.stringify(listaPruebas));
   };
 
   //Acción del menú, para mostrar o no las opciones.
@@ -84,8 +90,8 @@ function App() {
       nombre: nombrePrueba,
       filtrado: false,
     };
-    const nuevas = ([...pruebas, nuevaPrueba]);
-    setPruebas(nuevas)
+    const nuevas = [...pruebas, nuevaPrueba];
+    setPruebas(nuevas);
     localStorage.setItem("pruebasIniciales", JSON.stringify(nuevas));
   };
 
@@ -103,6 +109,16 @@ function App() {
     localStorage.setItem("fantasmas", JSON.stringify(fantasmaAct));
   };
 
+  //Agregar fantasma
+  const agregarFantasma = () => {
+    setNewFantasma(!newFantasma);
+  };
+
+  const guardarFantasma = (nuevoFantasma) => {
+  setFantasma(prev => [...prev, nuevoFantasma]);
+  localStorage.setItem("fantasmas", JSON.stringify([...fantasma, nuevoFantasma]));
+};
+
   return (
     <>
       <Header admin={admin} handleAdmin={handleAdmin} />
@@ -113,8 +129,6 @@ function App() {
           onClick={onClick}
           pruebaDlte={pruebaDlte}
           admin={admin}
-          abierto={abierto}
-          handleOpen={handleOpen}
           modoEdicion={modoEdicionP}
           onEdition={handleEditionP}
           onUpdate={actualizarPrueba}
@@ -128,13 +142,39 @@ function App() {
             key={fantasma.id}
             fantasma={fantasma}
             admin={admin}
-            onEdition={handleEditionF}
-            modoEdicion={modoEdicionF}
+            onEdition={toggleEdicionF}
+            modoEdicion={edicionFantasma}
             onDelete={onDelete}
             onUpdate={actualizarFantasmas}
           />
         ))}
       </div>
+      {admin && (
+        <div className="fantAdd">
+          <button className="btnAgregarFant" onClick={handleOpen}>
+            <i
+              class="fa-solid fa-plus"
+              style={{
+                transition: "transform 0.3s ease",
+                transform: abierto ? "rotate(45deg)" : "rotate(0deg)",
+              }}
+            ></i>
+          </button>
+          <AddFantasma newFantasma={newFantasma} setNewFantasma={setNewFantasma} fantasmas={fantasmas} setFantasma={setFantasma} onAdd={guardarFantasma} />
+          {abierto && (
+            <ul>
+              <li
+                onClick={() => {
+                  agregarFantasma();
+                  handleOpen();
+                }}
+              >
+                Nuevo fantasma
+              </li>
+            </ul>
+          )}
+        </div>
+      )}
     </>
   );
 }

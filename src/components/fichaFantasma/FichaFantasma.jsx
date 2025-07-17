@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../css/fichaFantasma.css";
+import "../fichaFantasma/fichaFantasma.css";
 // import { pruebas } from "../data/pruebas";
 
 export const FichaFantasma = ({
@@ -53,14 +53,14 @@ export const FichaFantasma = ({
 
   const handleSubmit = (e) => {
     e.stopPropagation();
-    onEdition();
+    onEdition(fantasma.id);
   };
 
   return (
     <div className="container" onClick={handleVuelta}>
       <div className="info">
         <form onSubmit={handleSubmit}>
-          {modoEdicion ? (
+          { admin && modoEdicion === fantasma.id ? (
             <label>
               Nombre:
               <input
@@ -79,7 +79,7 @@ export const FichaFantasma = ({
                 className="botonEditar"
                 type="button"
                 onClick={(e) => {
-                  onEdition();
+                  onEdition(fantasma.id);
                   e.stopPropagation();
                 }}
                 title="Editar"
@@ -104,7 +104,7 @@ export const FichaFantasma = ({
               /* FRENTE */
               <div className="frenteData">
                 <div className="pruebasContainer">
-                  {modoEdicion ? (
+                  {admin && modoEdicion === fantasma.id ? (
                     <label className="labelPruebas">
                       Pruebas:
                       {fantasma.pruebas.map((prueba, id) => (
@@ -128,7 +128,7 @@ export const FichaFantasma = ({
                     </div>
                   )}
                 </div>
-                {modoEdicion ? (
+                {admin && modoEdicion === fantasma.id ? (
                   <label className="labelCordura">
                     Cordura:
                     <input
@@ -145,7 +145,7 @@ export const FichaFantasma = ({
             ) : (
               /* DETRÁS */
               <div className="atrasData">
-                {modoEdicion ? (
+                {admin && modoEdicion === fantasma.id ? (
                   <>
                     <label>
                       Estrategias:
@@ -170,12 +170,12 @@ export const FichaFantasma = ({
               </div>
             )}
           </div>
-          {modoEdicion && (
+          {admin && modoEdicion === fantasma.id && (
             <div className="botonesFinalizar">
               <button
                 type="submit"
                 onClick={(e) => {
-                  onEdition();
+                  onEdition(fantasma.id);
                   e.stopPropagation();
                 }}
                 title="Actualizar"
