@@ -76,22 +76,29 @@ function App() {
     localStorage.setItem("pruebasIniciales", JSON.stringify(listaPruebas));
   };
 
-  const estDlte = () => {
+  const borrarEstrategia = (fId, i) => {
     const confirmacion = window.confirm(
       "¿Estás segura/o de que querés borrar esta estrategia?"
     );
     if (!confirmacion) return;
-  };
+    const lista = fantasma.map((f) => {
+      if (f.id === fId) {
+        const nuevas = f.estrategias.filter((_,index) => index !== i)
+        return {...f, estrategias:nuevas}
+      }
+      return f
+    })
+    setFantasma(lista)
+    localStorage.setItem("fantasmas", JSON.stringify(lista))
+  }
 
-
-  //Acción del menú, para mostrar o no las opciones.
+  //Acción del menú (opciones)
   const handleOpen = () => {
     setAbierto(!abierto);
   };
 
   //Editar y agregar pruebas
   const actualizarPrueba = (id, pruebaEdit) => {
-    // );
     const pruebaAct = pruebas.map((p) =>
       p.id === id ? { ...p, nombre: pruebaEdit } : p
     );
@@ -164,7 +171,7 @@ function App() {
             modoEdicion={edicionFantasma}
             onDelete={onDelete}
             onUpdate={actualizarFantasmas}
-            onDeleteEst={estDlte}
+            borrarEstrategia={borrarEstrategia}
           />
         ))}
       </div>
@@ -186,7 +193,6 @@ function App() {
             setFantasma={setFantasma}
             onAdd={guardarFantasma}
             abrirNuevo={agregarFantasma}
-            onDeleteEst={estDlte}
           />
           {abierto && (
             <ul>

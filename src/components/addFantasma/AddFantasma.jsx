@@ -6,7 +6,6 @@ export const AddFantasma = ({
   setNewFantasma,
   onAdd,
   abrirNuevo,
-  onDeleteEst
 }) => {
   const [nuevo, setNuevo] = useState({
     name: "",
@@ -35,6 +34,15 @@ export const AddFantasma = ({
 
   const onClickEstr = () => {
     setNuevo((prev) => ({ ...prev, estrategias: [...prev.estrategias, ""] }));
+  };
+
+  const estDlte = (i) => {
+    const confirmacion = window.confirm(
+      "¿Estás segura/o de que querés borrar esta estrategia?"
+    );
+    if (!confirmacion) return;
+    const nuevas = nuevo.estrategias.filter((_, e) => e !== i )
+    setNuevo((prev) => ({... prev, estrategias:nuevas}))
   };
 
   const agregarFantasma = (e) => {
@@ -89,10 +97,11 @@ export const AddFantasma = ({
                 />
               </label>
             ))}
-            {/* <label>
-              <input type="checkbox" />
-              ¿Tiene prueba obligatoria?
-            </label>*/}
+            <label>
+              Prueba obligatoria
+              <input type="text" value={nuevo.pruebaObligatoria}
+                onChange={(e) => handleChange("pruebaObligatoria", e.target.value)}/>
+            </label>
             <label>Estrategia:</label>
             <div className="btnPlus">
               <button type="button" onClick={onClickEstr}>
@@ -107,7 +116,7 @@ export const AddFantasma = ({
                   value={estr}
                   onChange={(e) => handleEstrategias(i, e.target.value)}
                 />
-                <button className="icono-borrar"  onClick={onDeleteEst} >
+                <button className="icono-borrar"  onClick={() =>estDlte(i)} >
                   <i class="fa-solid fa-xmark"></i>
                 </button>
               </div>

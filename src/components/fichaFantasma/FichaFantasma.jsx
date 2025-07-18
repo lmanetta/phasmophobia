@@ -8,6 +8,7 @@ export const FichaFantasma = ({
   modoEdicion,
   onDelete,
   onUpdate,
+  borrarEstrategia,
 }) => {
   const [vuelta, setVuelta] = useState(true);
   const [visible, setVisible] = useState(true);
@@ -100,7 +101,6 @@ export const FichaFantasma = ({
                 title="Eliminar"
               >
                 <i class="fa-solid fa-trash"></i>
-               
               </button>
             </>
           )}
@@ -166,14 +166,21 @@ export const FichaFantasma = ({
                       </button>
                     </div>
                     {fantasma.estrategias.map((estrategia, id) => (
-                      <textarea
-                        className="inputEst"
-                        key={id}
-                        type="text"
-                        value={estrategia}
-                        onChange={(e) => editEstrategias(id, e)}
-                        onClick={(e) => e.stopPropagation()}
-                      />
+                      <div key={id + 1} className="divEstrategia">
+                        <textarea
+                          className="inputEst"
+                          type="text"
+                          value={estrategia}
+                          onChange={(e) => editEstrategias(id, e)}
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                        <button
+                          className="icon-dte"
+                          onClick={(e) => {borrarEstrategia(fantasma.id, id); e.stopPropagation()}}
+                        >
+                          <i class="fa-solid fa-xmark"></i>
+                        </button>
+                      </div>
                     ))}
                   </>
                 ) : (
