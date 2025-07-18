@@ -19,7 +19,7 @@ function App() {
   });
   const [admin, setAdmin] = useState(() => {
     const guardado = localStorage.getItem("admin");
-    return guardado ? JSON.parse(guardado) : true;
+    return guardado ? JSON.parse(guardado) : false;
   });
   const [filtro, setFiltro] = useState([]);
   const [edicionFantasma, setEdicionFantasma] = useState();
