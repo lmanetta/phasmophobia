@@ -113,6 +113,32 @@ h3 {
   margin-bottom: 0.5em;
 }
 
+.estContainer{
+ width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  justify-content: center;
+  align-items: center;
+}
+
+.estContainer button{
+  width: 40px;
+  border-radius: 10px;
+}
+
+.estContainer button:hover{
+  background-color: rgb(125, 125, 125);
+  cursor: pointer;
+}
+
+.inputEst{
+  width: 100%;
+  resize: none; 
+  overflow: hidden;
+  min-height: 2em; 
+}
+
 .botonContainer {
   cursor: pointer;
 }
@@ -122,12 +148,29 @@ h3 {
   justify-content: center;
   gap: 0.5em;
   padding-bottom: 0.8em;
+  
+}
+
+.botonesFinalizar button{
+  border-radius: 10px;
+}
+
+.botonesFinalizar button:hover{
+  background-color: rgb(125, 125, 125);
+  cursor: pointer;
 }
 
 
 input{
-  width: 18em;
+  width: 100%;
   height: 2em;
+}
+
+.inputPruebas, .inputCordura{
+  width: 100%;
+  resize: none; 
+  overflow: hidden;
+  min-height: 2em; 
 }
 
 .labelCordura{

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "../fichaFantasma/fichaFantasma.css";
-// import { pruebas } from "../data/pruebas";
 
 export const FichaFantasma = ({
   fantasma,
@@ -8,12 +7,10 @@ export const FichaFantasma = ({
   onEdition,
   modoEdicion,
   onDelete,
-  onUpdate
+  onUpdate,
 }) => {
-
   const [vuelta, setVuelta] = useState(true);
   const [visible, setVisible] = useState(true);
-  
 
   /* Volteo */
   const volteo = visible ? "contenidoVoltear" : "contenidoVoltear hidden";
@@ -35,20 +32,25 @@ export const FichaFantasma = ({
   };
 
   const handleChange = (prop, valor) => {
-    const nuevo = {...fantasma, [prop]:valor}
-    onUpdate(fantasma.id, nuevo)
-  }
+    const nuevo = { ...fantasma, [prop]: valor };
+    onUpdate(fantasma.id, nuevo);
+  };
 
   const editPruebas = (i, e) => {
     const nuevasPruebas = [...fantasma.pruebas];
     nuevasPruebas[i] = e.target.value;
-    onUpdate(fantasma.id, {...fantasma, pruebas:nuevasPruebas});
+    onUpdate(fantasma.id, { ...fantasma, pruebas: nuevasPruebas });
   };
 
   const editEstrategias = (i, e) => {
     const nuevasEstrategias = [...fantasma.estrategias];
     nuevasEstrategias[i] = e.target.value;
-    onUpdate(fantasma.id, {...fantasma, estrategias:nuevasEstrategias});
+    onUpdate(fantasma.id, { ...fantasma, estrategias: nuevasEstrategias });
+  };
+
+  const onClickEstr = () => {
+    const nuevasEstrategias = [...fantasma.estrategias, ""];
+    onUpdate(fantasma.id, { ...fantasma, estrategias: nuevasEstrategias });
   };
 
   const handleSubmit = (e) => {
@@ -60,14 +62,16 @@ export const FichaFantasma = ({
     <div className="container" onClick={handleVuelta}>
       <div className="info">
         <form onSubmit={handleSubmit}>
-          { admin && modoEdicion === fantasma.id ? (
+          {admin && modoEdicion === fantasma.id ? (
             <label>
               Nombre:
               <input
                 type="text"
                 value={fantasma.name}
                 onChange={(e) => handleChange("name", e.target.value)}
-                onClick={(e) => {e.stopPropagation()}}
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
               />
             </label>
           ) : (
@@ -96,6 +100,7 @@ export const FichaFantasma = ({
                 title="Eliminar"
               >
                 <i class="fa-solid fa-trash"></i>
+               
               </button>
             </>
           )}
@@ -133,6 +138,7 @@ export const FichaFantasma = ({
                     Cordura:
                     <input
                       type="text"
+                      className="inputCordura"
                       value={fantasma.cordura}
                       onChange={(e) => handleChange("cordura", e.target.value)}
                       onClick={(e) => e.stopPropagation()}
@@ -147,18 +153,28 @@ export const FichaFantasma = ({
               <div className="atrasData">
                 {admin && modoEdicion === fantasma.id ? (
                   <>
-                    <label>
-                      Estrategias:
-                      {fantasma.estrategias.map((estrategia, id) => (
-                        <input
-                          key={id}
-                          type="text"
-                          value={estrategia}
-                          onChange={(e) => editEstrategias(id, e)}
-                          onClick={(e) => e.stopPropagation()}
-                        />
-                      ))}
-                    </label>
+                    <div className="estContainer">
+                      <label>Estrategias:</label>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onClickEstr();
+                        }}
+                      >
+                        <i class="fa-solid fa-plus"></i>
+                      </button>
+                    </div>
+                    {fantasma.estrategias.map((estrategia, id) => (
+                      <textarea
+                        className="inputEst"
+                        key={id}
+                        type="text"
+                        value={estrategia}
+                        onChange={(e) => editEstrategias(id, e)}
+                        onClick={(e) => e.stopPropagation()}
+                      />
+                    ))}
                   </>
                 ) : (
                   <ul>

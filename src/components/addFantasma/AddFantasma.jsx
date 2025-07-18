@@ -3,8 +3,10 @@ import "../addFantasma/addFantasma.css";
 
 export const AddFantasma = ({
   newFantasma,
-  onAdd,
   setNewFantasma,
+  onAdd,
+  abrirNuevo,
+  onDeleteEst
 }) => {
   const [nuevo, setNuevo] = useState({
     name: "",
@@ -13,7 +15,7 @@ export const AddFantasma = ({
     estrategias: [""],
     cordura: "",
   });
-  const [idCount, setIdCount] = useState(25)
+  const [idCount, setIdCount] = useState(25);
 
   const handleChange = (prop, valor) => {
     setNuevo((prev) => ({ ...prev, [prop]: valor }));
@@ -47,7 +49,7 @@ export const AddFantasma = ({
       cordura: nuevo.cordura,
     };
 
-    setIdCount((idCount)=>idCount+1)
+    setIdCount((idCount) => idCount + 1);
     onAdd(nuevoFantasma);
     setNewFantasma(false);
 
@@ -83,6 +85,7 @@ export const AddFantasma = ({
                   type="text"
                   value={nuevo.pruebas[i]}
                   onChange={(e) => handlePruebas(i, e.target.value)}
+                  required
                 />
               </label>
             ))}
@@ -90,30 +93,50 @@ export const AddFantasma = ({
               <input type="checkbox" />
               ¿Tiene prueba obligatoria?
             </label>*/}
-            <label>
-              Estrategia:
+            <label>Estrategia:</label>
+            <div className="btnPlus">
               <button type="button" onClick={onClickEstr}>
                 <i class="fa-solid fa-plus"></i>
               </button>
-              {nuevo.estrategias.map((estr, i) => (
+            </div>
+            {nuevo.estrategias.map((estr, i) => (
+              <div className="divEst">
                 <textarea
                   key={i + 1}
                   type="text"
                   value={estr}
                   onChange={(e) => handleEstrategias(i, e.target.value)}
                 />
-              ))}
-            </label>
+                <button className="icono-borrar"  onClick={onDeleteEst} >
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+            ))}
+
             <label>
               Cordura:
               <input
                 type="text"
                 value={nuevo.cordura}
                 onChange={(e) => handleChange("cordura", e.target.value)}
+                required
               />
             </label>
 
-            <button type="submit">Guardar fantasmas</button>
+            <div className="divBtn">
+              <button className="btnGuardar" type="submit">
+                Guardar fantasmas
+              </button>
+            </div>
+            <button
+              className="icono-cerrar"
+              onClick={(e) => {
+                e.stopPropagation();
+                abrirNuevo();
+              }}
+            >
+              <i class="fa-solid fa-minus"></i>
+            </button>
           </form>
         </div>
       )}

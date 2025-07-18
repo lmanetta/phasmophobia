@@ -17,7 +17,6 @@ function App() {
     const guardado = localStorage.getItem("pruebasIniciales");
     return guardado ? JSON.parse(guardado) : pruebasIniciales;
   });
-  // const [admin, setAdmin] = useState(false);
   const [admin, setAdmin] = useState(() => {
     const guardado = localStorage.getItem("admin");
     return guardado ? JSON.parse(guardado) : false;
@@ -58,16 +57,32 @@ function App() {
 
   //Eliminar
   const onDelete = (id) => {
+    const confirmacion = window.confirm(
+      "¿Estás segura/o de que querés borrar este fantasma?"
+    );
+    if (!confirmacion) return;
     const listaFantasma = fantasma.filter((f) => f.id !== id);
     setFantasma(listaFantasma);
     localStorage.setItem("fantasmas", JSON.stringify(listaFantasma));
   };
 
   const pruebaDlte = (id) => {
+    const confirmacion = window.confirm(
+      "¿Estás segura/o de que querés borrar esta prueba?"
+    );
+    if (!confirmacion) return;
     const listaPruebas = pruebas.filter((p) => p.id !== id);
     setPruebas(listaPruebas);
     localStorage.setItem("pruebasIniciales", JSON.stringify(listaPruebas));
   };
+
+  const estDlte = () => {
+    const confirmacion = window.confirm(
+      "¿Estás segura/o de que querés borrar esta estrategia?"
+    );
+    if (!confirmacion) return;
+  };
+
 
   //Acción del menú, para mostrar o no las opciones.
   const handleOpen = () => {
@@ -115,9 +130,12 @@ function App() {
   };
 
   const guardarFantasma = (nuevoFantasma) => {
-  setFantasma(prev => [...prev, nuevoFantasma]);
-  localStorage.setItem("fantasmas", JSON.stringify([...fantasma, nuevoFantasma]));
-};
+    setFantasma((prev) => [...prev, nuevoFantasma]);
+    localStorage.setItem(
+      "fantasmas",
+      JSON.stringify([...fantasma, nuevoFantasma])
+    );
+  };
 
   return (
     <>
@@ -146,6 +164,7 @@ function App() {
             modoEdicion={edicionFantasma}
             onDelete={onDelete}
             onUpdate={actualizarFantasmas}
+            onDeleteEst={estDlte}
           />
         ))}
       </div>
@@ -160,7 +179,15 @@ function App() {
               }}
             ></i>
           </button>
-          <AddFantasma newFantasma={newFantasma} setNewFantasma={setNewFantasma} fantasmas={fantasmas} setFantasma={setFantasma} onAdd={guardarFantasma} />
+          <AddFantasma
+            newFantasma={newFantasma}
+            setNewFantasma={setNewFantasma}
+            fantasmas={fantasmas}
+            setFantasma={setFantasma}
+            onAdd={guardarFantasma}
+            abrirNuevo={agregarFantasma}
+            onDeleteEst={estDlte}
+          />
           {abierto && (
             <ul>
               <li

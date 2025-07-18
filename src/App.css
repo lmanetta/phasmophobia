@@ -13,6 +13,7 @@
   display: flex;
   justify-content: center;
   margin-top: -1em;
+  position: relative;
 }
 
 .btnAgregarFant{
@@ -20,5 +21,24 @@
   font-size: 2em;
   border: none;
   background: none;
+  position: absolute;
 }
 
+.fantAdd ul{
+  border: 1px solid ;
+  margin: 0;
+  padding: 0;
+  z-index: 100;
+  background-color: rgb(73, 73, 73);
+  position: absolute;
+  right: 39%;
+  top: 1.5em;
+  list-style: none;
+  border: none;
+  border-radius: 10px;
+}
+
+.fantAdd ul:hover{
+  cursor: pointer;
+  color: rgb(148, 148, 200);
+}
